@@ -1,5 +1,7 @@
 /*
 
+    WARNING BEFORE UPGRADING: CLIFF ADDED LINES 196, 227-233, AND CHANGED 236
+
 	jQuery Tags Input Plugin 1.3.3
 	
 	Copyright (c) 2011 XOXCO, Inc
@@ -191,7 +193,8 @@
       placeholderColor:'#666666',
       autosize: true,
       comfortZone: 20,
-      inputPadding: 6*2
+      inputPadding: 6*2,
+      tabindex: ''
     },options);
 
 		this.each(function() { 
@@ -221,10 +224,21 @@
 			}
 	
 			var markup = '<div id="'+id+'_tagsinput" class="tagsinput"><div id="'+id+'_addTag">';
-			
-			if (settings.interactive) {
-				markup = markup + '<input id="'+id+'_tag" value="" data-default="'+settings.defaultText+'" />';
-			}
+
+            // Begin TabIndex Modification
+
+            if ( settings.tabindex && $.isNumeric(settings.tabindex) === true ) {
+                tabindex = ' tabindex="'+settings.tabindex+'"';
+            } else {
+                tabindex = '';
+            }
+
+            if (settings.interactive) {
+                //markup = markup + '<input id="'+id+'_tag" value="" data-default="'+settings.defaultText+'" />';
+                markup = markup + '<input id="'+id+'_tag" value="" data-default="'+settings.defaultText+'"'+tabindex+' />';
+            }
+
+            // End TabIndex Modification
 			
 			markup = markup + '</div><div class="tags_clear"></div></div>';
 			
